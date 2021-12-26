@@ -2,28 +2,28 @@ import pytest
 
 from classes import Directory, BinaryFile, LogTextFile, BufferFile, NODE_TYPES
 
-root = Directory()
+root = Directory('root')
 
 def test_folders():
     assert root!=None
     root.create('dir1', NODE_TYPES['dir'])
     root.create('dir2', NODE_TYPES['dir'])
-    assert len(root.items)==2
-    assert (root.create('dir2', NODE_TYPES['dir'])==-1)
-    assert root.create('bin_file', NODE_TYPES['bin']==1)
+    root.create('dir3', NODE_TYPES['dir'])
+    assert len(root.items)==3
+    assert root.create('dir2', NODE_TYPES['dir'])==-1
+    assert root.create('bin_file', NODE_TYPES['bin'])==-1
     # >than max_elems
     assert root.create('bin_file1', NODE_TYPES['bin']==-1)
-    
+
+root.create('dir1', NODE_TYPES['dir'])
 dir1 = root.items['dir1']
 
-def test_create():
+def test_items():
     assert dir1!=None
     assert dir1.create('dir1_binfile1', NODE_TYPES['bin'])==1
     assert dir1.create('dir1_log_file1', NODE_TYPES['log'])==1
     assert dir1.create('dir1_buff_file1', NODE_TYPES['buff'])==1
     assert len(dir1.items)==3
-    
-def test_items():
     assert dir1.items['dir1_log_file1'].readfile() == ''
     dir1.items['dir1_log_file1'].append_str('jdsfnjdn')
     assert dir1.items['dir1_log_file1'].readfile() != ''
