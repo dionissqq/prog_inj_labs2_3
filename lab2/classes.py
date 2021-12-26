@@ -6,7 +6,7 @@ class Node():
         print('test')
 
 class Directory(Node):
-    DIR_MAX_ELEMS = 2
+    DIR_MAX_ELEMS = 3
 
     def __init__(self):
         super().__init__()
@@ -36,6 +36,8 @@ class LogTextFile(File):
         pass
 
 class BufferFile(File):
+    MAX_BUF_FILE_SIZE = 3
+    
     def append(self, item):
         pass
 
