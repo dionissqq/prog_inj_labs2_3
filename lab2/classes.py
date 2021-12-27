@@ -17,15 +17,18 @@ class Directory(Node):
         self.items = {}
 
     def list_items(self):
-        for i, item in enumerate(self.items):
+        for i, item in enumerate(self.items.values()):
             print(str(i)+') '+item.name)
+        print('\n')
 
     def move_item(self, item_name, new_location):
+        print(len(new_location.items))
         if len(new_location.items)<Directory.DIR_MAX_ELEMS:
+
             new_location.items[item_name] = self.items[item_name]
+            self.delete(item_name)
         else:   
             return -1
-        self.delete(item_name)
         return 1
 
     def create(self, name, file_type):
@@ -37,6 +40,7 @@ class Directory(Node):
 
     def delete(self, name):
         del self.items[name]
+        return 1
 
 class File(Node):
 
